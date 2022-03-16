@@ -5,6 +5,7 @@ This repository is going to be used to track my progress in Elixir. As I've been
 How I've been learning is through YouTube, the [Advent of Code 2021](https://adventofcode.com/2021), and reading the [Elixir documentation](https://hexdocs.pm/elixir/Kernel.html). On top of that, as you might've noticed by some file naming, I am learning with one of my friends, Mederick. 
 
 ## Roadblocks
+This section will be used to show where I struggle, and following will be a chunk of code in which I overcome the struggle or 'roadblock'.
 ### Roadblock #1
 (3/15/22) One-lined functions and pattern matching:
 ```elixir
