@@ -22,7 +22,7 @@ defmodule DailyTests do
     IO.puts("Day2Part1 Answer: #{Day2.part1(input)}")
 
     assert Day2.part2(test_input) == 900
-    IO.puts("Day2Part1 Answer: #{Day2.part2(input)}")
+    IO.puts("Day2Part2 Answer: #{Day2.part2(input)}")
   end
 
   doctest Day3
@@ -33,5 +33,8 @@ defmodule DailyTests do
 
     assert Day3.part1(test_input) == 198
     IO.puts("Day3Part1 Answer: #{Day3.part1(input)}")
+
+    assert Day3.part2(test_input) == 230
+    IO.puts("Day3Part2 Answer: #{Day3.part2(input)}")
   end
 end
