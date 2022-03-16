@@ -9,15 +9,11 @@ defmodule M do
         IO.puts("FUCK YOU!")
     end
 
-    def print(name) do
-        IO.puts("Hello " <> name <> "!")
-    end
+    def print(name), do: "Hello " <> name <> "!" |> IO.puts
 
     def add_list([]), do: 0
-    def add_list([head | tail]) do
-        head + add_list(tail)
-    end
+    def add_list([head | tail]), do: head + add_list(tail)
 end
 
- #IO.puts(M.add_list([1, 2, 3, 4, 5]))
 [1, 2, 3, 4, 5] |> M.add_list |> IO.puts
+"Will" |> M.print

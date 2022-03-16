@@ -7,13 +7,7 @@ defmodule Pizza do
     @brands MapSet.new([:pizza_hut, :dominos])
     @types MapSet.new([:pepperoni, :cheese])
 
-    def order(%{brand: brand, type: type}) do
-      if MapSet.member?(@brands, brand) and MapSet.member?(@types, type) do
-        true
-      else
-        false
-      end
-    end
+    def order(%{brand: brand, type: type}), do: MapSet.member?(@brands, brand) and MapSet.member?(@types, type)
     def order(_params), do: false
 
     def order_pizzas(li) do
