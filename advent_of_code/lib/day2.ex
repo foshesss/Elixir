@@ -31,8 +31,8 @@ defmodule Day2 do
   defp part2_helper([], depth, horiz, _aim), do: [depth, horiz]
   defp part2_helper([[direction, num]|tail], depth, horiz, aim) do
 
-    IO.puts("Depth: #{depth}, Horiz: #{horiz}, Aim: #{aim}")
-    IO.puts("Direction: #{direction}, Amnt: #{num}")
+    # IO.puts("Depth: #{depth}, Horiz: #{horiz}, Aim: #{aim}")
+    # IO.puts("Direction: #{direction}, Amnt: #{num}")
 
     case direction do
       :up -> part2_helper(tail, depth, horiz, aim - num)
