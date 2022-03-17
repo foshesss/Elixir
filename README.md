@@ -15,6 +15,39 @@ defmodule example do
   def fib(n) when n >= 2, do: fib(n - 2) + fib(n - 1)
 end
 ```
+
+### Roadblock #2
+(3/16/22) Soo today has been pretty alright, but it's so difficult to code without looping constructs. For the advent of code, I had to find the frequency of 1s and 0s in a bit string and that so such a pain. HOWEVER, with determination and the realization that List/Enum functions are my best friend, I figured it out:
+```elixir
+  defp get_most_frequent([], output), do: output
+  defp get_most_frequent([head|tail], li) do
+    output = head
+    |> List.foldl(li, fn {elem, index}, acc ->
+      if elem == "1" do
+        List.update_at(acc, index, &(&1 + 1)) # add one to our output list if we find a one
+      else
+        acc # return output list how it was
+      end
+    end)
+
+    tail
+    |> get_most_frequent(output) # recursion Pog
+  end
+
+  def parse(file_name) do
+    file_name
+    |> File.read!
+    |> String.split("\n")
+    |> Enum.map(fn x -> x |> String.split("", trim: true) |> Enum.with_index end)
+
+    # set our input up like this:
+    # [
+    #  [[1, 0], [0, 1], [1, 2], [1, 3], [1, 4]],
+    #  [[1, 0], [1, 1], [0, 2], [0, 3], [1, 4]]
+    # ]
+    # {element, index}
+  end
+```
 I'll likely continue updating my roadblocks section as I learn, so I can look back and laugh at how simple my mistakes were.
 
 ## Helpful YouTube videos
