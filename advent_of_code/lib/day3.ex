@@ -1,3 +1,5 @@
+# THIS IS SOOOOO MESSY
+
 defmodule Day3 do
 
   defp binary_to_decimal([gamma, epsilon]) do
@@ -52,27 +54,52 @@ defmodule Day3 do
     |> binary_to_decimal
   end
 
-  defp get_oxygen_rating(input, pos, half) do
-    # shrink input
-    # most_frequent = get_most_frequent(input, [])
-    # Enum.filter(input, fn x -> x[most_frequent] == most_frequent end)
+  defp get_most_frequent_at(input, index) do 
+    size = Enum.count(input)/2
+    num_one = Enum.count(input, fn x -> {elem, _i} = Enum.at(x, index); elem == "1" end)
 
+    if size > num_one, do: "0", else: "1"
+  end
 
+  defp get_least_frequent_at(input, index) do
+      size = Enum.count(input)/2
+      num_one = Enum.count(input, fn x -> {elem, _i} = Enum.at(x, index); elem == "1" end)
+
+      if size > num_one, do: "1", else: "0"
+  end
+
+  # potential case.. what if more than one in input and index is out of bounds (?)
+
+  defp get_oxygen_rating(input, index) do
+    if Enum.count(input) == 1 do
+      List.first(input)
+    else
+       i = get_most_frequent_at(input, index) # most frequent at an index options: ["0", "1"]
+
+      input
+      |> Enum.filter(fn x -> {elem, _i} = Enum.at(x, index); elem == i end) # get rid of all inputs where the index DNE i
+      |> get_oxygen_rating(index + 1) # recursive call to continue finding
+    end
+  end
+
+  defp get_gamma_rating(input, index) do
+    if Enum.count(input) == 1 do
+      List.first(input)
+    else
+       i = get_least_frequent_at(input, index) # least frequent at an index options: ["0", "1"]
+
+      input
+      |> Enum.filter(fn x -> {elem, _i} = Enum.at(x, index); elem == i end) # get rid of all inputs where the index DNE i
+      |> get_gamma_rating(index + 1) # recursive call to continue finding
+    end
+  end
+
+  def get_string_rep(li) do
+    li
+    |> List.foldl("", fn {elem, _i}, acc -> acc <> elem end)
   end
 
   def part2(input) do
-        size = Enum.count(input)
-
-    input
-    |> get_most_frequent(List.duplicate(0, Enum.count(List.first(input, []))))
-    |> List.foldl(["", "", index],
-      fn x, [oxygen, epsilon] ->
-        if x > size/2 do
-          [gamma <> "1", epsilon <> "0", index + 1]
-        else
-          [gamma <> "0", epsilon <> "1", index + 1]
-        end
-      end)
-    |> binary_to_decimal
+    binary_to_decimal([get_string_rep(get_oxygen_rating(input, 0)), get_string_rep(get_gamma_rating(input, 0))])
   end
 end
