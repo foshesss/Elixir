@@ -41,7 +41,10 @@ defmodule DailyTests do
   doctest Day4
 
   test "day4_answer" do
+    test_input = Day4.parse("test/Input/Day4TestInput.txt")
     input = Day4.parse("test/Input/Day4Input.txt")
+
+    assert Day4.part1(test_input) == -1
 
     IO.puts("Day4Part1 Answer: #{Day4.part1(input)}")
   end
