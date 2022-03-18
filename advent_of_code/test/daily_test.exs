@@ -44,8 +44,12 @@ defmodule DailyTests do
     test_input = Day4.parse("test/Input/Day4TestInput.txt")
     input = Day4.parse("test/Input/Day4Input.txt")
 
-    assert Day4.part1(test_input) == -1
+    assert Day4.part1(test_input) == 4512
 
     IO.puts("Day4Part1 Answer: #{Day4.part1(input)}")
+
+    assert Day4.part2(test_input) == 1924
+
+    IO.puts("Day4Part2 Answer: #{Day4.part2(input)}")
   end
 end
