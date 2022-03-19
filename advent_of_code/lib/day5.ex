@@ -4,8 +4,8 @@ defmodule Day5 do
   defp remove_empty([[]|tail], ret), do: remove_empty(tail, ret)
   defp remove_empty([head|tail], ret), do: remove_empty(tail, [head|ret])
 
-  def parse(file_name) do
-    file_name
+  def parse(file_name, remove_diagonals) do
+    li = file_name
     |> File.read!
     |> String.split("\n", trim: true) # [s1, s2]
     |> Enum.map(fn line ->
@@ -16,64 +16,74 @@ defmodule Day5 do
         {y1, _} = Integer.parse(y1)
         {y2, _} = Integer.parse(y2)
 
-        if x1 == x2 or y1 == y2 do
-          [x1, y1, x2, y2]
-        else
-          []
+        cond do
+          remove_diagonals == false -> [x1, y1, x2, y2]
+          x1 == x2 or y1 == y2 -> [x1, y1, x2, y2]
+          true -> []
         end
     end)
     |> remove_empty([])
   end
 
-  # for debugging
-  # defp print(input) do
-  #   input
-  #   |> List.foldl(0, fn x, _ ->
-  #     IO.puts(x <> "\n")
-  #   end)
-  # end
+  defp add_point_to_map(x, y, map) do
+    current_point = to_string(x) <> "_" <> to_string(y)
 
-  defp hash_function({x, y}) do
-    to_string(x) <> "_" to_string(y)
+    map
+    |> Map.put(current_point, Map.get(map, current_point, 0) + 1)
   end
 
-  defp check_overlap() do
+  defp add_segment_to_map([x1, y1, x2, y2], map) when x1 == x2 and y1 == y2, do: add_point_to_map(x1, y1, map)
+  defp add_segment_to_map([x1, y1, x2, y2], map) when y1 == y2 do
+    updated_map = add_point_to_map(x1, y1, map)
 
+    cond do
+      x1 > x2 -> add_segment_to_map([x1 - 1, y1, x2, y2], updated_map)
+      true -> add_segment_to_map([x1 + 1, y1, x2, y2], updated_map)
+    end
   end
 
-  defp get_points() do
+  defp add_segment_to_map([x1, y1, x2, y2], map) when x1 == x2 do
+    updated_map = add_point_to_map(x1, y1, map)
 
+    cond do
+      y1 > y2 -> add_segment_to_map([x1, y1 - 1, x2, y2], updated_map)
+      true -> add_segment_to_map([x1, y1 + 1, x2, y2], updated_map)
+    end
   end
 
-  defp find_collisions([], map), do: map
-  defp find_collisions([head|tail], map) do
-    # find all collisions with head (if there are any)
-    # add each collision point to map
-    # map[collision_hash] = map[collision_hash] + 1 or 1
+  defp add_segment_to_map([x1, y1, x2, y2], map) do
+    updated_map = add_point_to_map(x1, y1, map)
 
-    [hx1, hy1, hx2, hy2] = head
-    
-    # find all collisions of head
-    tail
-    |> List.foldl(0, fn [x1, y1, x2, y2], _ ->
-      # loop through head and see if part of head line
+    cond do
+      x1 > x2 and y1 > y2 -> add_segment_to_map([x1 - 1, y1 - 1, x2, y2], updated_map)
+      x1 < x2 and y1 > y2 -> add_segment_to_map([x1 + 1, y1 - 1, x2, y2], updated_map)
+      x1 > x2 and y1 < y2 -> add_segment_to_map([x1 - 1, y1 + 1, x2, y2], updated_map)
+      x1 < x2 and y1 < y2 -> add_segment_to_map([x1 + 1, y1 + 1, x2, y2], updated_map)
+    end
+  end
 
-      # add to map
-      if x1 == x2 do
-        # vertical line
-      else # can be implied that y1 == y2 due to parse()
-        # horizontal line
-      end
-      # do math for this
-
+  defp check_segments(input) do
+    input
+    |> List.foldl(%{}, fn segment, map ->
+      add_segment_to_map(segment, map)
     end)
-
-    find_collisions(tail, map)
   end
 
   def part1(input) do
     input
-    |> find_collisions(%{})
-    |> count_more_than_two
+    |> check_segments
+    |> Map.values
+    |> Enum.count(fn elem ->
+      elem >= 2
+    end)
+  end
+
+  def part2(input) do
+    input
+    |> check_segments
+    |> Map.values
+    |> Enum.count(fn elem ->
+      elem >= 2
+    end)
   end
 end

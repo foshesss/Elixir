@@ -1,5 +1,7 @@
 defmodule DailyTests do
   use ExUnit.Case
+  @moduletag timeout: :infinity
+
   doctest Day1
 
   test "day1_answer" do
@@ -56,13 +58,29 @@ defmodule DailyTests do
   doctest Day5
 
   test "day5_answer" do
-    test_input = Day5.parse("test/Input/Day5TestInput.txt")
-    input = Day5.parse("test/Input/Day5Input.txt")
+    test_input = Day5.parse("test/Input/Day5TestInput.txt", true)
+    input = Day5.parse("test/Input/Day5Input.txt", true)
 
     assert Day5.part1(test_input) == 5
-    Day5.part1(input)
 
+    IO.puts("Day5Part1 Answer: #{Day5.part1(input)}")
+
+    test_input = Day5.parse("test/Input/Day5TestInput.txt", false)
+    input = Day5.parse("test/Input/Day5Input.txt", false)
+
+    assert Day5.part2(test_input) == 12
+
+    IO.puts("Day5Part2 Answer: #{Day5.part2(input)}")
   end
 
+  doctest Day6
 
+  test "day6_answer" do
+    test_input = Day6.parse("test/Input/Day6TestInput.txt")
+    input = Day6.parse("test/Input/Day6Input.txt")
+
+    assert Day6.part1(test_input) == 5934
+
+    IO.puts("Day6Part1 Answer: #{Day6.part1(input)}")
+  end
 end
