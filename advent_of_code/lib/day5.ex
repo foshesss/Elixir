@@ -37,6 +37,14 @@ defmodule Day5 do
     to_string(x) <> "_" to_string(y)
   end
 
+  defp check_overlap() do
+
+  end
+
+  defp get_points() do
+
+  end
+
   defp find_collisions([], map), do: map
   defp find_collisions([head|tail], map) do
     # find all collisions with head (if there are any)
@@ -44,12 +52,23 @@ defmodule Day5 do
     # map[collision_hash] = map[collision_hash] + 1 or 1
 
     [hx1, hy1, hx2, hy2] = head
-
+    
+    # find all collisions of head
     tail
     |> List.foldl(0, fn [x1, y1, x2, y2], _ ->
+      # loop through head and see if part of head line
+
+      # add to map
+      if x1 == x2 do
+        # vertical line
+      else # can be implied that y1 == y2 due to parse()
+        # horizontal line
+      end
       # do math for this
 
     end)
+
+    find_collisions(tail, map)
   end
 
   def part1(input) do
