@@ -9,7 +9,6 @@ defmodule Day7 do
         end)
     end
 
-
     defp get_smallest(_input, -1, smallest, _sum), do: smallest
     defp get_smallest(input, target, smallest, summation) do
         total = input
