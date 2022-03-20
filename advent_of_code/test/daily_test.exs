@@ -82,5 +82,20 @@ defmodule DailyTests do
     assert Day6.part1(test_input) == 5934
 
     IO.puts("Day6Part1 Answer: #{Day6.part1(input)}")
+
+    assert Day6.part2(test_input) == 26984457539
+
+    IO.puts("Day6Part2 Answer: #{Day6.part2(input)}")
+  end
+
+  doctest Day7
+
+  test "day7_answer" do
+    test_input = Day7.parse("test/Input/Day7TestInput.txt")
+    input = Day7.parse("test/Input/Day7Input.txt")
+
+    assert Day7.part1(test_input) == 37
+
+    IO.puts("Day7Part1 Answer: #{Day7.part1(input)}")
   end
 end
