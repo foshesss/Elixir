@@ -97,5 +97,10 @@ defmodule DailyTests do
     assert Day7.part1(test_input) == 37
 
     IO.puts("Day7Part1 Answer: #{Day7.part1(input)}")
+
+    # commented out because run time is WAY too long. definitely a better method. do not care
+    # assert Day7.part2(test_input) == 168
+
+    # IO.puts("Day7Part2 Answer: #{Day7.part2(input)}")
   end
 end
