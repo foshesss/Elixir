@@ -96,7 +96,19 @@ defmodule Day8 do
         end)
     end
 
-    defp unscramble(input) do
+    defp unscramble(input, map) do
+        # input is a string "abcde"
+        # map is the mapping [a, b, c, d, e, f, g]
+        # each map will be different, but this will help determine what is what.
+
+        # [1, 1, 1, 0, 1, 1, 1] is a 0
+        # [0, 1, 0, 0, 0, 1, 0] is a 1, so on
+
+        # damn dude, i gotta be honest. no idea how i'm gonna pull this off.
+
+
+
+
         5
     end
 
