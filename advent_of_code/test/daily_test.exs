@@ -113,5 +113,9 @@ defmodule DailyTests do
     assert Day8.part1(test_input) == 26
 
     IO.puts("Day8Part1 Answer: #{Day8.part1(input)}")
+
+    assert Day8.part2(test_input) == 61229
+
+    IO.puts("Day8Part2 Answer: #{Day8.part2(input)}")
   end
 end
