@@ -119,6 +119,6 @@ defmodule Day8 do
 
     def part2(input) do
         input
-        |> unscramble
+        |> unscramble([])
     end
 end
