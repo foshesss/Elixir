@@ -1,11 +1,23 @@
 defmodule Day8 do
 
+    # Parsing output: [inputs, outputs]
+    # inputs: list of items that are used to unscramble outputs
+    # outputs: items to be unscrambled based on patterns in inputs
     def parse(file_name) do
         file_name
         |> File.read!
-        |> String.split("\n")
+        |> String.split("\n", trim: true)
         |> Enum.map(fn elem ->
-            [inputs, output] = elem |> String.split(" | ")
+            [inputs, outputs] = elem
+            |> String.split(" | ", trim: true)
+
+            inputs = inputs
+            |> String.split(" ", trim: true)
+
+            outputs = outputs
+            |> String.split(" ", trim: true)
+
+            [inputs, outputs]
         end)
     end
 
@@ -16,7 +28,7 @@ defmodule Day8 do
 
     #gn my sweet child xqcL
 
-    def day1(input) do
+    def part1(input) do
         input
     end
 end
